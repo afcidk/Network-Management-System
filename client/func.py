@@ -15,7 +15,7 @@ def send_internet(conn, host='8.8.8.8', port=53):
 # print available interface
 def send_config(conn):
     print('here')
-    to = {}
+    top = {}
     top['interface'] = os.listdir('/sys/class/net')
     print(top)
     conn.send_mes(json.dumps(top))
