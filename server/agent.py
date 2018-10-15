@@ -6,7 +6,7 @@ class Agent():
         self.pool = {}
         self.conn = conn
         self.addr = addr
-        self.rthread = threading.Thread(target=self.refresh, name='refresh_thread')
+        self.rthread = threading.Thread(target=self.refresh_thread, name='refresh_thread')
         self.rthread.start()
 
     def send_mes(self, msg):
@@ -29,7 +29,7 @@ class Agent():
         else:
             self.pool[tup] = {typ: l}
 
-    def refresh(self):
+    def refresh_thread(self):
         print("Refresh Thread started")
         while True:
             try:

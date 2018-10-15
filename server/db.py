@@ -19,7 +19,7 @@ def add_flow(src, dst, l, typ):
         print(src, dst, l, typ)
 
     except Exception as e:
-        print("error: " + str(e))
+        print("error in add_flow: " + str(e))
         db.rollback()
 
 def get_ip_sorted():
@@ -28,5 +28,17 @@ def get_ip_sorted():
         data = cur.fetchOne()
         print(data)
     except Exception as e:
-        print("error: " + str(e))
+        print("error in get_ip_sorted: " + str(e))
 
+def get_flow_size(target, origin):
+    if origin=='src':
+        end = 'dst'
+    else:
+        end = 'src'
+
+    try:
+        cur.execute("select {0},{1} from flows where {2}='{3}' and {0}!='10.0.0.1'".format(end, 'len', origin, target))
+        return list(cur.fetchall())
+    except Exception as e:
+        print("error in get_flow_size: "+str(e))
+        return None
