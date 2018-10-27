@@ -11,7 +11,7 @@ class Agent():
 
     def send_mes(self, msg):
         self.conn.send((msg+'\n').encode())
-        print("message sent")
+        print("sent {}".format(msg))
 
     def add_pkt(self, pkt):
         src = pkt['src']
