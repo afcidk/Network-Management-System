@@ -1,5 +1,6 @@
 import socket, time, json
 import os
+import parse
 
 # Fault management 1
 # Use 53/tcp port to ping 8.8.8.8
@@ -19,5 +20,14 @@ def send_config(conn):
     top['interface'] = os.listdir('/sys/class/net')
     print(top)
     conn.send_mes(json.dumps(top))
+
+# Accounting management 1
+# send users' usage
+def sniff(conn):
+    def sniff_callback(pkt):
+        parsed = parse.parse_pkt(pkt)
+        if parsed is None: return
+        else: conn.store_mes(parsed)
+    return sniff_callback
 
 
